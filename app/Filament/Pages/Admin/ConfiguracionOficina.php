@@ -3,6 +3,7 @@
 namespace App\Filament\Pages\Admin;
 
 use App\Models\DetalleOficina; // <--- USA TU MODELO AQUÍ
+use Filament\Forms\Components\Section; // Para agrupar los nuevos campos
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -13,6 +14,8 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Storage;
+use Filament\Forms\Components\Toggle;   // Para el campo 'es_predeterminado'
+
 // use Illuminate\Contracts\Auth\Authenticatable;
 
 class ConfiguracionOficina extends Page implements HasForms
@@ -75,6 +78,54 @@ class ConfiguracionOficina extends Page implements HasForms
                     ->columns(2)
                     ->columnSpanFull()
                     ->defaultItems(1),
+                Section::make('Proyectos / Acciones Específicas')
+                    ->description('Defina la lista de proyectos o acciones que se pueden asociar a las requisiciones. Marque uno como predeterminado para nuevas requisiciones.')
+                    ->collapsible() // Para que se pueda plegar/desplegar
+                    ->schema([
+                        Repeater::make('proyectos_acciones')
+                            ->label(false) // El label ya está en la sección
+                            ->schema([
+                                TextInput::make('codigo')
+                                    ->label('Código del Proyecto/Acción')
+                                    ->required(),
+                                TextInput::make('nombre')
+                                    ->label('Nombre del Proyecto/Acción')
+                                    ->required(),
+                                TextInput::make('responsable')
+                                    ->label('Responsable del Proyecto/Acción')
+                                    ->required(),
+                                Toggle::make('es_predeterminado')
+                                    ->label('Predeterminado')
+                                    ->helperText('Marcar si este es el valor por defecto.')
+                                    ->inline(false), // Para que el label esté encima
+                            ])
+                            ->defaultItems(0) // Iniciar vacío o con 1 si prefieres
+                            ->addActionLabel('Añadir Proyecto/Acción')
+                            ->columns(2), // Campos dentro de cada item del repeater
+                    ]),
+
+                // --- NUEVA SECCIÓN PARA FUENTES DE FINANCIAMIENTO ---
+                Section::make('Fuentes de Financiamiento')
+                    ->description('Defina la lista de fuentes de financiamiento. Marque una como predeterminada.')
+                    ->collapsible()
+                    ->schema([
+                        Repeater::make('fuentes_financiamiento')
+                            ->label(false)
+                            ->schema([
+                                TextInput::make('nombre')
+                                    ->label('Nombre de la Fuente')
+                                    ->required(),
+                                TextInput::make('codigo_interno')
+                                    ->label('Código Interno (Opcional)'),
+                                Toggle::make('es_predeterminado')
+                                    ->label('Predeterminado')
+                                    ->helperText('Marcar si este es el valor por defecto.')
+                                    ->inline(false),
+                            ])
+                            ->defaultItems(0)
+                            ->addActionLabel('Añadir Fuente de Financiamiento'),
+                    ]),
+
             ])
             ->statePath('data')
             ->model($this->detalleOficina); // <--- USA TU MODELO AQUÍ (opcional, pero bueno para la carga inicial)

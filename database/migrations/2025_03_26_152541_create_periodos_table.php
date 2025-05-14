@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('periodos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->string('anio');
             $table->date('inicio');
             $table->date('fin');
-            $table->enum('estatus', ['activo', 'inactivo'])->default('inactivo');
+            $table->enum('estado', ['activo', 'inactivo'])->default('inactivo');
             $table->timestamps();
         });
     }

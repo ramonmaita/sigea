@@ -50,17 +50,17 @@ class RolesAndPermissionsSeeder extends Seeder
             ['description' => 'Permite crear, ver, editar y eliminar períodos de gestión fiscal/administrativa.']
         );
 
-        // --- PRÓXIMOS PERMISOS (EJEMPLOS PARA CUANDO CREEMOS LOS MÓDULOS) ---
-        // Requisiciones
-        // Permission::updateOrCreate(['name' => 'view_requisiciones'], ['description' => 'Permite ver la lista de requisiciones.']);
-        // Permission::updateOrCreate(['name' => 'create_requisicion'], ['description' => 'Permite crear nuevas requisiciones.']);
-        // Permission::updateOrCreate(['name' => 'edit_requisicion'], ['description' => 'Permite editar requisiciones existentes.']);
-        // Permission::updateOrCreate(['name' => 'approve_requisicion'], ['description' => 'Permite aprobar o rechazar requisiciones.']);
-        // Permission::updateOrCreate(['name' => 'delete_requisicion'], ['description' => 'Permite eliminar requisiciones.']);
-
-        // Inventario
-        // Permission::updateOrCreate(['name' => 'manage_inventory'], ['description' => 'Permite gestionar el inventario de bienes (crear, editar, eliminar).']);
-        // Permission::updateOrCreate(['name' => 'generate_inventory_reports'], ['description' => 'Permite generar reportes del inventario.']);
+        // Permisos para Requisiciones
+        Permission::updateOrCreate(['name' => 'view_any_requisiciones'], ['description' => 'Permite ver todas las requisiciones del sistema.']);
+        Permission::updateOrCreate(['name' => 'view_own_requisiciones'], ['description' => 'Permite ver únicamente las requisiciones creadas por el propio usuario.']);
+        Permission::updateOrCreate(['name' => 'create_requisicion'], ['description' => 'Permite crear nuevas requisiciones.']);
+        Permission::updateOrCreate(['name' => 'edit_requisicion'], ['description' => 'Permite editar requisiciones (podría estar restringido por estado).']);
+        Permission::updateOrCreate(['name' => 'delete_requisicion'], ['description' => 'Permite eliminar requisiciones (podría estar restringido por estado).']);
+        Permission::updateOrCreate(['name' => 'approve_requisicion'], ['description' => 'Permite aprobar o rechazar requisiciones.']);
+        Permission::updateOrCreate(['name' => 'process_requisicion'], ['description' => 'Permite marcar requisiciones como procesadas.']);
+        Permission::updateOrCreate(['name' => 'cancel_requisicion'], ['description' => 'Permite anular requisiciones.']);
+        Permission::updateOrCreate(['name' => 'view_requisicion_attachments'], ['description' => 'Permite ver/descargar archivos adjuntos de requisiciones.']);
+        Permission::updateOrCreate(['name' => 'upload_requisicion_attachments'], ['description' => 'Permite subir archivos adjuntos a requisiciones.']);
 
 
         // --- CREAR ROLES ---
@@ -95,7 +95,6 @@ class RolesAndPermissionsSeeder extends Seeder
 
 
         // --- ASIGNAR ROL DE ADMINISTRADOR AL USUARIO ADMIN ---
-        // **IMPORTANTE**: Cambia 'tu_email_admin@example.com' por el email real de tu cuenta de administrador.
         $adminEmail = 'admin@gmail.com';
         $adminUser = User::where('email', $adminEmail)->first();
 

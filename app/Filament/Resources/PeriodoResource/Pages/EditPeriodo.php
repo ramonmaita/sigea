@@ -10,10 +10,14 @@ class EditPeriodo extends EditRecord
 {
     protected static string $resource = PeriodoResource::class;
 
-    protected function getHeaderActions(): array
+    // protected function getHeaderActions(): array
+    // {
+    //     return [
+    //         Actions\DeleteAction::make(),
+    //     ];
+    // }
+    protected function getRedirectUrl(): string
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        return static::getResource()::getUrl('index'); // 'index' es la ruta de la página de listado del recurso
     }
 }

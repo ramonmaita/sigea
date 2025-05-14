@@ -31,7 +31,8 @@ class PeriodoResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('descripcion')
+                Forms\Components\TextInput::make('anio')
+                    ->label('Año')
                     ->required()
                     ->numeric()
                     ->minValue(2000) // O un año base razonable
@@ -41,7 +42,8 @@ class PeriodoResource extends Resource
                 Forms\Components\DatePicker::make('fin')
                     ->required()
                     ->afterOrEqual('inicio'), // Asegurar que la fecha fin sea después o igual a la de inicio
-                Forms\Components\Select::make('estatus')
+                Forms\Components\Select::make('estado')
+                    ->label('Estado')
                     ->options(Periodo::getEstados()) // Usamos el método del modelo
                     ->required(),
             ]);
@@ -55,7 +57,8 @@ class PeriodoResource extends Resource
                 Tables\Columns\TextColumn::make('nombre')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('descripcion')
+                Tables\Columns\TextColumn::make('anio')
+                    ->label('Año')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('inicio')
                     ->date()
@@ -72,21 +75,13 @@ class PeriodoResource extends Resource
                     })
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true), // Oculto por defecto
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true), // Oculto por defecto
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('estado')
                     ->options(Periodo::getEstados()),
-                Tables\Filters\SelectFilter::make('descripcion')
+                Tables\Filters\SelectFilter::make('anio')
                     ->options(
-                        Periodo::orderBy('descripcion', 'desc')->pluck('descripcion', 'descripcion')->unique()->toArray()
+                        Periodo::orderBy('anio', 'desc')->pluck('anio', 'anio')->unique()->toArray()
                     ) // Para obtener los años existentes como opciones de filtro
             ])
             ->actions([
@@ -98,7 +93,7 @@ class PeriodoResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('descripcion', 'desc'); // Ordenar por defecto por año descendente
+            ->defaultSort('anio', 'desc'); // Ordenar por defecto por año descendente
     }
 
     public static function getRelations(): array

@@ -16,9 +16,13 @@ class DetalleOficina extends Model
         'email_contacto',
         'path_logo',
         'autoridades',
+        'proyectos_acciones',
+        'fuentes_financiamiento',
     ];
 
     protected $casts = [
         'autoridades' => 'array', // Para que Laravel maneje el campo 'autoridades' como un array/JSON automáticamente
+        'proyectos_acciones' => 'array',
+        'fuentes_financiamiento' => 'array',
     ];
 }

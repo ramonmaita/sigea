@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Periodo;
+use App\Models\Requisicion;
 use App\Models\User;
 use App\Policies\PeriodoPolicy;
 use App\Policies\PermissionPolicy;
+use App\Policies\RequisicionPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
         User::class => UserPolicy::class, // <-- Añade esta línea
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
+        Requisicion::class => RequisicionPolicy::class,
 
     ];
     /**
