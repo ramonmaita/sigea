@@ -174,7 +174,7 @@ class RequisicionResource extends Resource
                                     ->required()
                                     ->minLength(3)
                                     ->maxLength(100)
-                                    ->columnSpan(2)
+                                    // ->columnSpan(2)
                                     ->datalist($descripcionesExistentes) // Añadir esto
                                     ->live(onBlur: true) // Para que reaccione cuando se pierde el foco
                                     // ->live(debounce: 500) // O con debounce para que reaccione mientras se escribe
@@ -299,6 +299,12 @@ class RequisicionResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('pdf')
+                    ->label('Ver PDF')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->color('info')
+                    ->url(fn(Requisicion $record): string => route('requisiciones.pdf', $record))
+                    ->openUrlInNewTab(),
                 // Acción para generar PDF (la añadiremos después)
             ])
             ->bulkActions([
