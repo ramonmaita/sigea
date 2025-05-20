@@ -61,8 +61,24 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::updateOrCreate(['name' => 'cancel_requisicion'], ['description' => 'Permite anular requisiciones.']);
         Permission::updateOrCreate(['name' => 'view_requisicion_attachments'], ['description' => 'Permite ver/descargar archivos adjuntos de requisiciones.']);
         Permission::updateOrCreate(['name' => 'upload_requisicion_attachments'], ['description' => 'Permite subir archivos adjuntos a requisiciones.']);
-
-
+        Permission::updateOrCreate(['name' => 'view_any_bienes'], ['description' => 'Permite ver todos los bienes del inventario.']);
+        Permission::updateOrCreate(['name' => 'view_bien'], ['description' => 'Permite ver el detalle de un bien específico.']); // A menudo se usa junto con view_any o view_own
+        Permission::updateOrCreate(['name' => 'create_bien'], ['description' => 'Permite registrar nuevos bienes en el inventario.']);
+        Permission::updateOrCreate(['name' => 'edit_bien'], ['description' => 'Permite editar la información de los bienes existentes.']);
+        Permission::updateOrCreate(['name' => 'delete_bien'], ['description' => 'Permite eliminar bienes del inventario (usar con precaución).']);
+        Permission::updateOrCreate(['name' => 'manage_inventory_settings'], ['description' => 'Permite configurar aspectos del módulo de inventario (ej. tipos de bien, ubicaciones si se gestionan).']); // Opcional
+        Permission::updateOrCreate(['name' => 'assign_bien_to_user'], ['description' => 'Permite asignar un bien a un responsable/usuario.']); // Si añadimos esta funcionalidad
+        Permission::updateOrCreate(['name' => 'generate_bien_qr_code'], ['description' => 'Permite generar etiquetas o códigos QR para los bienes.']); // Para el futuro
+        Permission::updateOrCreate(['name' => 'view_any_ordenes_salida'], ['description' => 'Permite ver todas las órdenes de salida.']);
+        Permission::updateOrCreate(['name' => 'view_own_ordenes_salida'], ['description' => 'Permite ver solo las órdenes de salida creadas/solicitadas por el propio usuario.']);
+        Permission::updateOrCreate(['name' => 'create_orden_salida'], ['description' => 'Permite crear nuevas órdenes de salida.']);
+        Permission::updateOrCreate(['name' => 'edit_orden_salida'], ['description' => 'Permite editar órdenes de salida (generalmente restringido por estado).']);
+        Permission::updateOrCreate(['name' => 'delete_orden_salida'], ['description' => 'Permite eliminar órdenes de salida (generalmente restringido por estado).']);
+        Permission::updateOrCreate(['name' => 'approve_orden_salida'], ['description' => 'Permite aprobar órdenes de salida pendientes.']);
+        Permission::updateOrCreate(['name' => 'execute_orden_salida'], ['description' => 'Permite marcar una orden de salida como ejecutada (bienes entregados).']);
+        Permission::updateOrCreate(['name' => 'process_retorno_orden_salida'], ['description' => 'Permite registrar y procesar el retorno de bienes de una orden de salida.']);
+        Permission::updateOrCreate(['name' => 'cancel_orden_salida'], ['description' => 'Permite anular órdenes de salida.']);
+        Permission::updateOrCreate(['name' => 'view_orden_salida_pdf'], ['description' => 'Permite generar/ver el PDF de una orden de salida.']); // Permiso para el PDF
         // --- CREAR ROLES ---
         $roleAdmin = Role::updateOrCreate(['name' => 'Administrador']);
         $roleGestor = Role::updateOrCreate(['name' => 'GestorOficina']);

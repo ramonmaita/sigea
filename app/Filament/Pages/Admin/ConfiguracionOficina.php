@@ -54,6 +54,11 @@ class ConfiguracionOficina extends Page implements HasForms
                 TextInput::make('nombre_oficina')
                     ->label('Nombre de la Oficina/Institución')
                     ->required(),
+                TextInput::make('acronimo_oficina') // <-- NUEVO CAMPO
+                    ->label('Acrónimo de la Oficina (para correlativos)')
+                    ->helperText('Ej: DIRCAA, UPTBOLIVAR, ADM')
+                    ->maxLength(50)
+                    ->nullable(),
                 Textarea::make('direccion')
                     ->label('Dirección')
                     ->rows(2),

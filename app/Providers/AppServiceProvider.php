@@ -24,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
         Role::class => RolePolicy::class,
         Permission::class => PermissionPolicy::class,
         Requisicion::class => RequisicionPolicy::class,
+        \App\Models\Bien::class => \App\Policies\BienPolicy::class,
+        \App\Models\OrdenSalida::class => \App\Policies\OrdenSalidaPolicy::class,
 
     ];
     /**

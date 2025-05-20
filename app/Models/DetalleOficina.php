@@ -11,6 +11,7 @@ class DetalleOficina extends Model
 
     protected $fillable = [
         'nombre_oficina',
+        'acronimo_oficina',
         'direccion',
         'telefonos',
         'email_contacto',

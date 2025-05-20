@@ -299,12 +299,25 @@ class RequisicionResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('pdf')
-                    ->label('Ver PDF')
-                    ->icon('heroicon-o-document-arrow-down')
+                // Tables\Actions\Action::make('pdf')
+                //     ->label('Ver PDF')
+                //     ->icon('heroicon-o-document-arrow-down')
+                //     ->color('info')
+                //     ->url(fn(Requisicion $record): string => route('requisiciones.pdf', $record))
+                //     ->openUrlInNewTab(),
+                Tables\Actions\Action::make('visualizarPdfEnModal')
+                    ->label('Visualizar PDF')
+                    ->icon('heroicon-o-eye') // O 'heroicon-o-document-magnifying-glass'
                     ->color('info')
-                    ->url(fn(Requisicion $record): string => route('requisiciones.pdf', $record))
-                    ->openUrlInNewTab(),
+                    ->modalContent(fn(Requisicion $record): \Illuminate\Contracts\View\View => view(
+                        'filament.modals.view-pdf', // Ruta a tu nueva vista Blade para el modal
+                        ['pdfUrl' => route('requisiciones.pdf', $record)] // Pasa la URL del PDF a la vista
+                    ))
+                    ->modalHeading(fn(Requisicion $record): string => 'Requisición N° ' . $record->numero_requisicion)
+                    ->modalWidth('4xl') // O 'xl', '2xl', '3xl', '5xl', '6xl', '7xl' para ajustar el ancho
+                    ->modalSubmitAction(false) // No necesitamos un botón de "submit" en el modal
+                    ->modalCancelActionLabel('Cerrar')
+                    ->visible(fn(Requisicion $record): bool => true), // O alguna condición
                 // Acción para generar PDF (la añadiremos después)
             ])
             ->bulkActions([
