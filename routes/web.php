@@ -26,4 +26,20 @@ Route::get('/requisiciones/{requisicion}/pdf', [PdfController::class, 'generarRe
     ->name('requisiciones.pdf')
     ->middleware('auth'); // Asegurar que solo usuarios autenticados puedan acceder
 
-require __DIR__.'/auth.php';
+Route::get('/ordenes-salida/{ordenSalida}/pdf', [PdfController::class, 'generarOrdenSalidaPdf'])
+    ->name('ordenes_salida.pdf')
+    ->middleware('auth'); // Proteger la ruta
+
+    Route::get('/solicitudes-desincorporacion/{solicitud}/acta-pdf', [PdfController::class, 'generarActaDesincorporacionPdf'])
+    ->name('solicitudes_desincorporacion.acta_pdf')
+    ->middleware('auth');
+
+Route::get('/solicitudes-reasignacion/{solicitud}/acta-pdf', [PdfController::class, 'generarActaReasignacionPdf'])
+    ->name('solicitudes_reasignacion.acta_pdf')
+    ->middleware('auth');
+
+    Route::get('/comunicaciones/{comunicacion}/pdf', [PdfController::class, 'generarComunicacionPdf'])
+    ->name('comunicaciones.pdf')
+    ->middleware('auth');
+
+require __DIR__ . '/auth.php';

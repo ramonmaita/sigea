@@ -79,6 +79,26 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::updateOrCreate(['name' => 'process_retorno_orden_salida'], ['description' => 'Permite registrar y procesar el retorno de bienes de una orden de salida.']);
         Permission::updateOrCreate(['name' => 'cancel_orden_salida'], ['description' => 'Permite anular órdenes de salida.']);
         Permission::updateOrCreate(['name' => 'view_orden_salida_pdf'], ['description' => 'Permite generar/ver el PDF de una orden de salida.']); // Permiso para el PDF
+        Permission::updateOrCreate(['name' => 'view_any_solicitudes_desincorporacion'], ['description' => 'Permite ver todas las solicitudes de desincorporación.']);
+        Permission::updateOrCreate(['name' => 'view_own_solicitudes_desincorporacion'], ['description' => 'Permite ver solo las solicitudes de desincorporación creadas por el propio usuario.']); // Si aplica
+        Permission::updateOrCreate(['name' => 'create_solicitud_desincorporacion'], ['description' => 'Permite crear nuevas solicitudes de desincorporación.']);
+        Permission::updateOrCreate(['name' => 'edit_solicitud_desincorporacion'], ['description' => 'Permite editar solicitudes de desincorporación (generalmente restringido por estado).']);
+        Permission::updateOrCreate(['name' => 'delete_solicitud_desincorporacion'], ['description' => 'Permite eliminar solicitudes de desincorporación (generalmente restringido por estado).']);
+        Permission::updateOrCreate(['name' => 'approve_solicitud_desincorporacion'], ['description' => 'Permite aprobar solicitudes de desincorporación pendientes.']);
+        Permission::updateOrCreate(['name' => 'execute_solicitud_desincorporacion'], ['description' => 'Permite marcar una solicitud de desincorporación como ejecutada (bienes formalmente desincorporados).']);
+        Permission::updateOrCreate(['name' => 'cancel_solicitud_desincorporacion'], ['description' => 'Permite anular solicitudes de desincorporación.']);
+        Permission::updateOrCreate(['name' => 'view_desincorporacion_pdf'], ['description' => 'Permite generar/ver el PDF del Acta de Desincorporación.']);
+        Permission::updateOrCreate(['name' => 'view_any_solicitudes_reasignacion'], ['description' => 'Permite ver todas las solicitudes de reasignación.']);
+        Permission::updateOrCreate(['name' => 'view_own_solicitudes_reasignacion'], ['description' => 'Permite ver solo las solicitudes de reasignación creadas por el propio usuario.']); // Si tienes user_id_solicitante
+        Permission::updateOrCreate(['name' => 'create_solicitud_reasignacion'], ['description' => 'Permite crear nuevas solicitudes de reasignación.']);
+        Permission::updateOrCreate(['name' => 'edit_solicitud_reasignacion'], ['description' => 'Permite editar solicitudes de reasignación (restringido por estado).']);
+        Permission::updateOrCreate(['name' => 'delete_solicitud_reasignacion'], ['description' => 'Permite eliminar solicitudes de reasignación (restringido por estado).']);
+        Permission::updateOrCreate(['name' => 'approve_solicitud_reasignacion'], ['description' => 'Permite aprobar solicitudes de reasignación pendientes.']);
+        Permission::updateOrCreate(['name' => 'execute_solicitud_reasignacion'], ['description' => 'Permite marcar una solicitud de reasignación como ejecutada (bienes reasignados).']);
+        Permission::updateOrCreate(['name' => 'cancel_solicitud_reasignacion'], ['description' => 'Permite anular solicitudes de reasignación.']);
+        Permission::updateOrCreate(['name' => 'view_reasignacion_pdf'], ['description' => 'Permite generar/ver el PDF del Acta de Reasignación.']);
+
+
         // --- CREAR ROLES ---
         $roleAdmin = Role::updateOrCreate(['name' => 'Administrador']);
         $roleGestor = Role::updateOrCreate(['name' => 'GestorOficina']);

@@ -26,7 +26,8 @@ class AppServiceProvider extends ServiceProvider
         Requisicion::class => RequisicionPolicy::class,
         \App\Models\Bien::class => \App\Policies\BienPolicy::class,
         \App\Models\OrdenSalida::class => \App\Policies\OrdenSalidaPolicy::class,
-
+        \App\Models\SolicitudDesincorporacion::class => \App\Policies\SolicitudDesincorporacionPolicy::class,
+        \App\Models\SolicitudReasignacion::class => \App\Policies\SolicitudReasignacionPolicy::class,
     ];
     /**
      * Register any application services.

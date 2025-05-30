@@ -78,9 +78,10 @@ class ConfiguracionOficina extends Page implements HasForms
                     ->label('Autoridades Principales')
                     ->schema([
                         TextInput::make('nombre')->label('Nombre Completo')->required(),
+                        TextInput::make('cedula')->label('Cedula')->required(),
                         TextInput::make('cargo')->label('Cargo')->required(),
                     ])
-                    ->columns(2)
+                    ->columns(3)
                     ->columnSpanFull()
                     ->defaultItems(1),
                 Section::make('Proyectos / Acciones Específicas')

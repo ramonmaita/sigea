@@ -41,12 +41,6 @@ class OrdenSalidaResource extends Resource
                 Section::make('Información General de la Orden')
                     ->columns(2)
                     ->schema([
-                        TextInput::make('numero_orden_salida')
-                            ->label('N° de Orden de Salida')
-                            ->disabled() // Se generará al guardar
-                            ->placeholder('Se genera al guardar')
-                            ->dehydrated(false) // No se envía si está deshabilitado y no se modifica
-                            ->columnSpanFull(),
                         DatePicker::make('fecha_salida')
                             ->label('Fecha de Salida')
                             ->default(now())
@@ -500,6 +494,24 @@ class OrdenSalidaResource extends Resource
                             !in_array($record->estado_orden, ['Ejecutada (Bienes Entregados)', 'Retornada Completamente', 'Cerrada', 'Anulada']) &&
                                 auth()->user()->can('cancel', $record)
                         ),
+
+
+                    Tables\Actions\Action::make('pdfOrdenSalida')
+                        ->label('Ver PDF')
+                        ->icon('heroicon-o-document-arrow-down')
+                        ->color('info')
+                        // ->url(fn (OrdenSalida $record): string => route('ordenes_salida.pdf', $record))
+                        // ->openUrlInNewTab()
+                        // Para abrir en modal:
+                        ->modalContent(fn(OrdenSalida $record): \Illuminate\Contracts\View\View => view(
+                            'filament.modals.view-pdf', // Reutilizamos la vista del modal si es genérica
+                            ['pdfUrl' => route('ordenes_salida.pdf', $record)]
+                        ))
+                        ->modalHeading(fn(OrdenSalida $record): string => 'Orden de Salida N° ' . $record->numero_orden_salida)
+                        ->modalWidth('5xl') // Ajusta el tamaño
+                        ->modalSubmitAction(false)
+                        ->modalCancelActionLabel('Cerrar')
+                        ->visible(fn(OrdenSalida $record): bool => auth()->user()->can('view_orden_salida_pdf', $record)), // Usando el método de la policy
                 ]),
             ])
             ->bulkActions([

@@ -200,7 +200,7 @@ class RequisicionResource extends Resource
                             ])
                             ->defaultItems(1)
                             ->addActionLabel('Añadir Ítem')
-                            ->columns(5) // Ajusta las columnas para los campos del ítem
+                            ->columns(4) // Ajusta las columnas para los campos del ítem
                             ->columnSpanFull()
                             // Lógica para autocompletar items (más avanzada, para después)
                             // ->reorderableWithButtons() // Opcional: permitir reordenar ítems

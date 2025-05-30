@@ -35,4 +35,18 @@ class Bien extends Model
                     ->withPivot('observacion_item_salida', 'estado_item_retorno') // Campos adicionales de la tabla pivote
                     ->withTimestamps(); // Si tu tabla pivote tiene timestamps
     }
+
+    public function solicitudesDesincorporacion(): BelongsToMany
+    {
+        return $this->belongsToMany(SolicitudDesincorporacion::class, 'bien_solicitud_desincorporacion')
+                    ->withPivot('observacion_especifica_bien')
+                    ->withTimestamps();
+    }
+
+    public function solicitudesReasignacion(): BelongsToMany // <--- NUEVA RELACIÓN
+    {
+        return $this->belongsToMany(SolicitudReasignacion::class, 'bien_solicitud_reasignacion')
+                    ->withPivot('observacion_especifica_bien')
+                    ->withTimestamps();
+    }
 }
